@@ -1,0 +1,14 @@
+epochs: 30
+batch_size: 32
+random_state: 42  # int for reproducible train-test splits, blank otherwise
+
+network:
+  hidden_size: 480
+  hidden_layers: 12
+  attn_heads: 12
+  dropout: 0.15
+
+optim:
+  lr: 1.0e-5
+
+sch:
