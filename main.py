@@ -42,6 +42,7 @@ def train_model():
                 'lr': curr_lr
             }, f'{save_dir}/model.pt')
             print('Model Saved')
+    wandb.finish()
 
 
 config = yaml.load(open('./config.yaml', 'r'), Loader=yaml.FullLoader)
