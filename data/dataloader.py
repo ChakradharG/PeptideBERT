@@ -8,7 +8,7 @@ def load_hemolysis_data(config):
 
     with np.load('./data/positive.npz') as pos_r,\
          np.load('./data/negative.npz') as neg_r:
-        pos_data = pos_r['arr_0']
+        pos_data = pos_r[list(pos_r.keys())[0]]
         neg_data = neg_r['seqs']
 
     input_ids = np.vstack((
