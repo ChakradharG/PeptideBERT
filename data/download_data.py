@@ -1,3 +1,4 @@
+import numpy as np
 import urllib.request
 
 
@@ -31,6 +32,13 @@ def download_nonfouling():
     urllib.request.urlretrieve(
         'https://github.com/ur-whitelab/peptide-dashboard/raw/master/ml/data/human-negative.npz',
         './data/nf-negative.npz',
+    )
+
+    neg = np.load('./data/nf-negative.npz')
+    np.savez(
+        './data/nf-negative.npz',
+        arr_0=neg['seqs'],
+        weights=neg['weights']
     )
 
 
