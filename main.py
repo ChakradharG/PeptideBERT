@@ -49,7 +49,7 @@ config = yaml.load(open('./config.yaml', 'r'), Loader=yaml.FullLoader)
 config['device'] = device
 
 train_data_loader, val_data_loader, test_data_loader = load_data(config)
-config['sch'] = {'steps': len(train_data_loader)}
+config['sch']['steps'] = len(train_data_loader)
 
 model = create_model(config)
 criterion, optimizer, scheduler = cri_opt_sch(config, model)

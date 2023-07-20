@@ -12,3 +12,4 @@ optim:
   lr: 1.0e-5
 
 sch:
+  name: onecycle  # onecycle, 

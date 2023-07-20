@@ -43,11 +43,13 @@ def create_model(config):
 def cri_opt_sch(config, model):
     criterion = torch.nn.BCELoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=config['optim']['lr'])
-    scheduler = torch.optim.lr_scheduler.OneCycleLR(
-        optimizer,
-        max_lr=config['optim']['lr'],
-        epochs=config['epochs'],
-        steps_per_epoch=config['sch']['steps']
-    )
+
+    if config['sch']['name'] == 'onecycle':
+        scheduler = torch.optim.lr_scheduler.OneCycleLR(
+            optimizer,
+            max_lr=config['optim']['lr'],
+            epochs=config['epochs'],
+            steps_per_epoch=config['sch']['steps']
+        )
 
     return criterion, optimizer, scheduler
