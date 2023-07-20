@@ -54,7 +54,7 @@ config['sch']['steps'] = len(train_data_loader)
 model = create_model(config)
 criterion, optimizer, scheduler = cri_opt_sch(config, model)
 
-run_name = datetime.now().strftime('%m%d_%H%M')
+run_name = f'{config["task"]}-{datetime.now().strftime("%m%d_%H%M")}'
 wandb.init(project='PeptideBERT', name=run_name)
 
 save_dir = f'./checkpoints/{run_name}'
