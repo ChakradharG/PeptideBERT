@@ -4,7 +4,7 @@ from datetime import datetime
 import yaml
 import os
 import shutil
-from data.dataloader import load_hemolysis_data
+from data.dataloader import load_data
 from model.network import create_model, cri_opt_sch
 from model.utils import train, validate, test
 
@@ -48,7 +48,7 @@ def train_model():
 config = yaml.load(open('./config.yaml', 'r'), Loader=yaml.FullLoader)
 config['device'] = device
 
-train_data_loader, val_data_loader, test_data_loader = load_hemolysis_data(config)
+train_data_loader, val_data_loader, test_data_loader = load_data(config)
 config['sch'] = {'steps': len(train_data_loader)}
 
 model = create_model(config)

@@ -3,13 +3,13 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from data.dataset import PeptideBERTDataset
 
-def load_hemolysis_data(config):
-    print(f'{"="*30}{"HEMOLYSIS DATA":^20}{"="*30}')
+def load_data(config):
+    print(f'{"="*30}{"DATA":^20}{"="*30}')
 
-    with np.load('./data/positive.npz') as pos_r,\
-         np.load('./data/negative.npz') as neg_r:
-        pos_data = pos_r[list(pos_r.keys())[0]]
-        neg_data = neg_r['seqs']
+    with np.load(f'./data/{config["task"]}-positive.npz') as pos,\
+         np.load(f'./data/{config["task"]}-negative.npz') as neg:
+        pos_data = pos['arr_0']
+        neg_data = neg['arr_0']
 
     input_ids = np.vstack((
         pos_data,
