@@ -1,5 +1,5 @@
 epochs: 30
-batch_size: 50
+batch_size: 32
 random_state: 42  # int for reproducible train-test splits, blank otherwise
 task: nf  # hemo, sol, nf
 
