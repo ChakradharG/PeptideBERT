@@ -46,7 +46,7 @@ def validate(model, dataloader, criterion, device):
     
         preds = torch.where(logits > 0.5, 1, 0)
         predictions.extend(preds.cpu().tolist())
-        ground_truth.extend(labels.tolist())
+        ground_truth.extend(labels.cpu().tolist())
 
     total_loss = total_loss / len(dataloader)
     accuracy = 100 * accuracy_score(ground_truth, predictions)
@@ -63,7 +63,7 @@ def test(model, dataloader, device):
     for batch in tqdm(dataloader):
         inputs = batch['input_ids'].to(device)
         attention_mask = batch['attention_mask'].to(device)
-        labels = batch['labels'].to(device)
+        labels = batch['labels']
 
         with torch.inference_mode():
             logits = model(inputs, attention_mask).squeeze()
