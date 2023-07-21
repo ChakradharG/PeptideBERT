@@ -13,4 +13,6 @@ optim:
   lr: 1.0e-5
 
 sch:
-  name: onecycle  # onecycle, 
+  name: lronplateau  # onecycle, lronplateau
+  factor: 0.1
+  patience: 3

@@ -22,6 +22,7 @@ def train_model():
         print(f'Epoch {epoch+1}/{config["epochs"]} - Train Loss: {train_loss}\tLR: {curr_lr}')
         val_loss, val_acc = validate(model, val_data_loader, criterion, device)
         print(f'Epoch {epoch+1}/{config["epochs"]} - Validation Loss: {val_loss}\tValidation Accuracy: {val_acc}')
+        scheduler.step(val_acc)
         wandb.log({
             'train_loss': train_loss, 
             'val_loss': val_loss, 

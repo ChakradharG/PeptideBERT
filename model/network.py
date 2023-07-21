@@ -51,5 +51,12 @@ def cri_opt_sch(config, model):
             epochs=config['epochs'],
             steps_per_epoch=config['sch']['steps']
         )
+    elif config['sch']['name'] == 'lronplateau':
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+            optimizer,
+            mode='max',
+            factor=config['sch']['factor'],
+            patience=config['sch']['patience']
+        )
 
     return criterion, optimizer, scheduler

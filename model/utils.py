@@ -19,7 +19,7 @@ def train(model, dataloader, optimizer, criterion, scheduler, device):
 
         loss.backward()
         optimizer.step()
-        scheduler.step()
+        # scheduler.step()  # if sch is onecycle
 
         total_loss += loss.item()
 
