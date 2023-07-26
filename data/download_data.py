@@ -1,5 +1,6 @@
 import numpy as np
 import urllib.request
+import convert_encodings
 
 
 def download_hemolysis():
@@ -45,3 +46,5 @@ def download_nonfouling():
 download_hemolysis()
 download_solubility()
 download_nonfouling()
+
+convert_encodings.main()

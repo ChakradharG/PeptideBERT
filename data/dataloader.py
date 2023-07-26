@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from data.dataset import PeptideBERTDataset
 
+
 def load_data(config):
     print(f'{"="*30}{"DATA":^20}{"="*30}')
 
@@ -21,7 +22,7 @@ def load_data(config):
         np.zeros(len(neg_data))
     ))
 
-    config['vocab_size'] = len(np.unique(input_ids))
+    config['vocab_size'] = input_ids.max() + 1
 
     train_val_inputs, test_inputs, train_val_labels, test_labels = train_test_split(
         input_ids, labels, test_size=0.1, random_state=config['random_state']
