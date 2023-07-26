@@ -21,7 +21,7 @@ def train_model():
         curr_lr = optimizer.param_groups[0]['lr']
         print(f'Epoch {epoch+1}/{config["epochs"]} - Train Loss: {train_loss}\tLR: {curr_lr}')
         val_loss, val_acc = validate(model, val_data_loader, criterion, device)
-        print(f'Epoch {epoch+1}/{config["epochs"]} - Validation Loss: {val_loss}\tValidation Accuracy: {val_acc}')
+        print(f'Epoch {epoch+1}/{config["epochs"]} - Validation Loss: {val_loss}\tValidation Accuracy: {val_acc}\n')
         scheduler.step(val_acc)
         wandb.log({
             'train_loss': train_loss, 
@@ -42,7 +42,7 @@ def train_model():
                 'acc': val_acc, 
                 'lr': curr_lr
             }, f'{save_dir}/model.pt')
-            print('Model Saved')
+            print('Model Saved\n')
     wandb.finish()
 
 
