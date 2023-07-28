@@ -12,11 +12,6 @@ class PeptideBERT(torch.nn.Module):
             ignore_mismatched_sizes=True
         )
         self.head = torch.nn.Sequential(
-            torch.nn.Dropout(bert_config.hidden_dropout_prob),
-            torch.nn.Linear(bert_config.hidden_size, bert_config.hidden_size),
-            torch.nn.LayerNorm(bert_config.hidden_size),
-            torch.nn.ReLU(),
-            torch.nn.Dropout(bert_config.hidden_dropout_prob),
             torch.nn.Linear(bert_config.hidden_size, 1),
             torch.nn.Sigmoid()
         )
