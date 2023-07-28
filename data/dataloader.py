@@ -22,7 +22,7 @@ def load_data(config):
         np.zeros(len(neg_data))
     ))
 
-    config['vocab_size'] = input_ids.max() + 1
+    config['vocab_size'] = int(input_ids.max() + 1)
 
     train_val_inputs, test_inputs, train_val_labels, test_labels = train_test_split(
         input_ids, labels, test_size=0.1, random_state=config['random_state']
