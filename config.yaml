@@ -15,4 +15,6 @@ optim:
 sch:
   name: lronplateau  # onecycle, lronplateau
   factor: 0.1
-  patience: 3
+
+tsfm:
+  factor: 0.1
