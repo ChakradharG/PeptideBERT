@@ -62,6 +62,7 @@ save_dir = f'./checkpoints/{run_name}'
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 shutil.copy('./config.yaml', f'{save_dir}/config.yaml')
+shutil.copy('./model/network.py', f'{save_dir}/network.py')
 
 train_model()
 model.load_state_dict(torch.load(f'{save_dir}/model.pt')['model_state_dict'])
