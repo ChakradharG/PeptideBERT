@@ -31,7 +31,10 @@ class RandomReplace(torch.nn.Module):
         self.factor = factor
 
     def __call__(self, sample):
-        unpadded_len = np.where(sample == 0)[0][0]
+        try:
+            unpadded_len = np.where(sample == 0)[0][0]
+        except IndexError:
+            unpadded_len = len(sample)
         to_replace = int(unpadded_len * self.factor)
         indices = np.random.choice(unpadded_len, to_replace, replace=False)
         sample[indices] = np.random.choice(np.arange(5, 25), to_replace, replace=True)
