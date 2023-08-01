@@ -2,4 +2,3 @@ __pycache__/
 wandb/
 checkpoints/
 *.npz
-.todo
