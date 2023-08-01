@@ -1,8 +1,7 @@
 from torch.utils.data import DataLoader
-from torch.nn import Sequential
 import numpy as np
 from sklearn.model_selection import train_test_split
-from data.dataset import PeptideBERTDataset, RandomReplace
+from data.dataset import PeptideBERTDataset
 
 
 def load_data(config):
@@ -37,15 +36,9 @@ def load_data(config):
     attention_mask_val = np.asarray(val_inputs > 0, dtype=np.float64)
     attention_mask_test = np.asarray(test_inputs > 0, dtype=np.float64)
 
-    train_transforms = Sequential(
-        RandomReplace(config['tsfm']['factor'])
-    )
-    val_transforms = Sequential()
-    test_transforms = Sequential()
-
-    train_dataset = PeptideBERTDataset(input_ids=train_inputs, attention_masks=attention_mask, labels=train_labels, transforms=train_transforms)
-    val_dataset = PeptideBERTDataset(input_ids=val_inputs, attention_masks=attention_mask_val, labels=val_labels, transforms=val_transforms)
-    test_dataset = PeptideBERTDataset(input_ids=test_inputs, attention_masks=attention_mask_test, labels=test_labels, transforms=test_transforms)
+    train_dataset = PeptideBERTDataset(input_ids=train_inputs, attention_masks=attention_mask, labels=train_labels)
+    val_dataset = PeptideBERTDataset(input_ids=val_inputs, attention_masks=attention_mask_val, labels=val_labels)
+    test_dataset = PeptideBERTDataset(input_ids=test_inputs, attention_masks=attention_mask_test, labels=test_labels)
 
     train_data_loader = DataLoader(
         train_dataset,
