@@ -1,36 +1,20 @@
 from torch.utils.data import DataLoader
 import numpy as np
-from sklearn.model_selection import train_test_split
 from data.dataset import PeptideBERTDataset
 
 
 def load_data(config):
     print(f'{"="*30}{"DATA":^20}{"="*30}')
 
-    with np.load(f'./data/{config["task"]}-positive.npz') as pos,\
-         np.load(f'./data/{config["task"]}-negative.npz') as neg:
-        pos_data = pos['arr_0']
-        neg_data = neg['arr_0']
-
-    input_ids = np.vstack((
-        pos_data,
-        neg_data
-    ))
-
-    labels = np.hstack((
-        np.ones(len(pos_data)),
-        np.zeros(len(neg_data))
-    ))
-
-    config['vocab_size'] = int(input_ids.max() + 1)
-
-    train_val_inputs, test_inputs, train_val_labels, test_labels = train_test_split(
-        input_ids, labels, test_size=0.1, random_state=config['random_state']
-    )
-
-    train_inputs, val_inputs, train_labels, val_labels = train_test_split(
-        train_val_inputs, train_val_labels, test_size=0.09/0.81, random_state=config['random_state']
-    )
+    with np.load(f'./data/{config["task"]}/train.npz') as train,\
+         np.load(f'./data/{config["task"]}/val.npz') as val,\
+         np.load(f'./data/{config["task"]}/test.npz') as test:
+        train_inputs = train['inputs']
+        train_labels = train['labels']
+        val_inputs = val['inputs']
+        val_labels = val['labels']
+        test_inputs = test['inputs']
+        test_labels = test['labels']
 
     attention_mask = np.asarray(train_inputs > 0, dtype=np.float64)
     attention_mask_val = np.asarray(val_inputs > 0, dtype=np.float64)
