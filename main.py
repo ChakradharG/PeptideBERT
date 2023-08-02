@@ -23,12 +23,13 @@ def train_model():
         val_loss, val_acc = validate(model, val_data_loader, criterion, device)
         print(f'Epoch {epoch+1}/{config["epochs"]} - Validation Loss: {val_loss}\tValidation Accuracy: {val_acc}\n')
         scheduler.step(val_acc)
-        wandb.log({
-            'train_loss': train_loss, 
-            'val_loss': val_loss, 
-            'val_accuracy': val_acc, 
-            'lr': curr_lr
-        })
+        if not config['debug']:
+            wandb.log({
+                'train_loss': train_loss, 
+                'val_loss': val_loss, 
+                'val_accuracy': val_acc, 
+                'lr': curr_lr
+            })
 
         if val_acc >= best_acc and not config['debug']:
             best_acc = val_acc
