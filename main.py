@@ -30,7 +30,7 @@ def train_model():
             'lr': curr_lr
         })
 
-        if val_acc >= best_acc:
+        if val_acc >= best_acc and not config['debug']:
             best_acc = val_acc
             torch.save({
                 'epoch': epoch,
@@ -55,15 +55,17 @@ config['sch']['steps'] = len(train_data_loader)
 model = create_model(config)
 criterion, optimizer, scheduler = cri_opt_sch(config, model)
 
-run_name = f'{config["task"]}-{datetime.now().strftime("%m%d_%H%M")}'
-wandb.init(project='PeptideBERT', name=run_name)
+if not config['debug']:
+    run_name = f'{config["task"]}-{datetime.now().strftime("%m%d_%H%M")}'
+    wandb.init(project='PeptideBERT', name=run_name)
 
-save_dir = f'./checkpoints/{run_name}'
-if not os.path.exists(save_dir):
-    os.makedirs(save_dir)
-shutil.copy('./config.yaml', f'{save_dir}/config.yaml')
-shutil.copy('./model/network.py', f'{save_dir}/network.py')
+    save_dir = f'./checkpoints/{run_name}'
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    shutil.copy('./config.yaml', f'{save_dir}/config.yaml')
+    shutil.copy('./model/network.py', f'{save_dir}/network.py')
 
 train_model()
-model.load_state_dict(torch.load(f'{save_dir}/model.pt')['model_state_dict'])
+if not config['debug']:
+    model.load_state_dict(torch.load(f'{save_dir}/model.pt')['model_state_dict'])
 test(model, test_data_loader, device)
