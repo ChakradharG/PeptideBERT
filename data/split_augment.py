@@ -48,7 +48,7 @@ def split_data(task):
 def main():
     split_data('hemo')
     split_data('sol')
-    split_data('nf')
+    # split_data('nf')
 
 
 main()
