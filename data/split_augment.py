@@ -55,6 +55,27 @@ def combine(inputs, labels, new_inputs, new_labels):
     return inputs, labels
 
 
+def random_replace(inputs, labels, factor):
+    new_inputs = []
+    new_labels = []
+    for idx in range(inputs.shape[0]):
+        ip = inputs[idx]
+        label = labels[idx]
+
+        try:
+            unpadded_len = np.where(ip == 0)[0][0]
+        except IndexError:
+            unpadded_len = len(ip)
+        to_replace = int(unpadded_len * factor)
+        indices = np.random.choice(unpadded_len, to_replace, replace=False)
+        ip[indices] = np.random.choice(np.arange(5, 25), to_replace, replace=True)
+
+        new_inputs.append(ip)
+        new_labels.append(label)
+
+    return combine(inputs, labels, new_inputs, new_labels)
+
+
 def augment_data(task):
     with np.load(f'./data/{task}/train.npz') as train:
         inputs = train['inputs']
