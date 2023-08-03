@@ -45,10 +45,35 @@ def split_data(task):
     )
 
 
+def combine(inputs, labels, new_inputs, new_labels):
+    new_inputs = np.vstack(new_inputs)
+    new_labels = np.hstack(new_labels)
+
+    inputs = np.vstack((inputs, new_inputs))
+    labels = np.hstack((labels, new_labels))
+
+    return inputs, labels
+
+
+def augment_data(task):
+    with np.load(f'./data/{task}/train.npz') as train:
+        inputs = train['inputs']
+        labels = train['labels']
+
+    inputs, labels = random_replace(inputs, labels, 0.05)
+
+    np.savez(
+        f'./data/{task}/train.npz',
+        inputs=inputs,
+        labels=labels
+    )
+
+
 def main():
     # split_data('hemo')
     split_data('sol')
     # split_data('nf')
 
+    augment_data('sol')
 
 main()
