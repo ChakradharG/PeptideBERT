@@ -1,5 +1,7 @@
 import torch
-from transformers import BertModel, BertConfig
+from transformers import BertModel, BertConfig, logging
+
+logging.set_verbosity_error()
 
 
 class PeptideBERT(torch.nn.Module):
