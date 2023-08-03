@@ -1,7 +1,7 @@
 epochs: 50
 batch_size: 32
 vocab_size: 25
-task: nf  # hemo, sol, nf
+task: hemo  # hemo, sol, nf
 debug: false
 
 network:
@@ -16,6 +16,4 @@ optim:
 sch:
   name: lronplateau  # onecycle, lronplateau
   factor: 0.1
-
-tsfm:
-  factor: 0.1
+  patience: 4
