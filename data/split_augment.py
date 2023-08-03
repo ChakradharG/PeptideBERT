@@ -73,7 +73,7 @@ def random_replace(inputs, labels, factor):
         new_inputs.append(ip)
         new_labels.append(label)
 
-    return combine(inputs, labels, new_inputs, new_labels)
+    return new_inputs, new_labels
 
 
 def augment_data(task):
@@ -81,7 +81,9 @@ def augment_data(task):
         inputs = train['inputs']
         labels = train['labels']
 
-    inputs, labels = random_replace(inputs, labels, 0.05)
+    new_inputs1, new_labels1 = random_replace(inputs, labels, 0.05)
+
+    inputs, labels = combine(inputs, labels, new_inputs1, new_labels1)
 
     np.savez(
         f'./data/{task}/train.npz',
