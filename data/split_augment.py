@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
+from convert_encodings import m2
 
 
 def split_data(task):
@@ -76,14 +77,37 @@ def random_replace(inputs, labels, factor):
     return new_inputs, new_labels
 
 
+def random_replace_with_A(inputs, labels, factor):
+    new_inputs = []
+    new_labels = []
+    for idx in range(inputs.shape[0]):
+        ip = inputs[idx]
+        label = labels[idx]
+
+        try:
+            unpadded_len = np.where(ip == 0)[0][0]
+        except IndexError:
+            unpadded_len = len(ip)
+        to_replace = int(unpadded_len * factor)
+        indices = np.random.choice(unpadded_len, to_replace, replace=False)
+        ip[indices] = m2['A']
+
+        new_inputs.append(ip)
+        new_labels.append(label)
+
+    return new_inputs, new_labels
+
+
 def augment_data(task):
     with np.load(f'./data/{task}/train.npz') as train:
         inputs = train['inputs']
         labels = train['labels']
 
     new_inputs1, new_labels1 = random_replace(inputs, labels, 0.05)
+    new_inputs3, new_labels3 = random_replace_with_A(inputs, labels, 0.05)
 
     inputs, labels = combine(inputs, labels, new_inputs1, new_labels1)
+    inputs, labels = combine(inputs, labels, new_inputs3, new_labels3)
 
     np.savez(
         f'./data/{task}/train.npz',
