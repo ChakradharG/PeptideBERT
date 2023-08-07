@@ -67,9 +67,9 @@ def random_replace(inputs, labels, factor):
             unpadded_len = np.where(ip == 0)[0][0]
         except IndexError:
             unpadded_len = len(ip)
-        to_replace = int(unpadded_len * factor)
-        indices = np.random.choice(unpadded_len, to_replace, replace=False)
-        ip[indices] = np.random.choice(np.arange(5, 25), to_replace, replace=True)
+        num_to_replace = round(unpadded_len * factor)
+        indices = np.random.choice(unpadded_len, num_to_replace, replace=False)
+        ip[indices] = np.random.choice(np.arange(5, 25), num_to_replace, replace=True)
 
         new_inputs.append(ip)
         new_labels.append(label)
@@ -88,8 +88,8 @@ def random_replace_with_A(inputs, labels, factor):
             unpadded_len = np.where(ip == 0)[0][0]
         except IndexError:
             unpadded_len = len(ip)
-        to_replace = int(unpadded_len * factor)
-        indices = np.random.choice(unpadded_len, to_replace, replace=False)
+        num_to_replace = round(unpadded_len * factor)
+        indices = np.random.choice(unpadded_len, num_to_replace, replace=False)
         ip[indices] = m2['A']
 
         new_inputs.append(ip)
