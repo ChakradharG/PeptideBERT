@@ -77,6 +77,31 @@ def random_replace(inputs, labels, factor):
     return new_inputs, new_labels
 
 
+def random_delete(inputs, labels, factor):
+    new_inputs = []
+    new_labels = []
+    for idx in range(inputs.shape[0]):
+        ip = inputs[idx]
+        bb = ip.copy()
+        label = labels[idx]
+
+        try:
+            unpadded_len = np.where(ip == 0)[0][0]
+        except IndexError:
+            unpadded_len = len(ip)
+        ip = list(ip[:unpadded_len])
+        num_to_delete = round(unpadded_len * factor)
+        indices = np.random.choice(unpadded_len, num_to_delete, replace=False)
+        for i in reversed(sorted(indices)):
+            ip.pop(i)
+        ip.extend([0] * (200 - len(ip)))
+
+        new_inputs.append(np.asarray(ip))
+        new_labels.append(label)
+
+    return new_inputs, new_labels
+
+
 def random_replace_with_A(inputs, labels, factor):
     new_inputs = []
     new_labels = []
