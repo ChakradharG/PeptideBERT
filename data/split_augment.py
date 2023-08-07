@@ -146,6 +146,33 @@ def random_swap(inputs, labels, factor):
     return new_inputs, new_labels
 
 
+def random_insertion_with_A(inputs, labels, factor):
+    new_inputs = []
+    new_labels = []
+    for idx in range(inputs.shape[0]):
+        ip = inputs[idx]
+        label = labels[idx]
+
+        try:
+            unpadded_len = np.where(ip == 0)[0][0]
+        except IndexError:
+            unpadded_len = len(ip)
+        ip = list(ip[:unpadded_len])
+        num_to_insert = round(unpadded_len * factor)
+        indices = np.random.choice(unpadded_len, num_to_insert, replace=False)
+        for i in indices:
+            ip.insert(i, m2['A'])
+        if len(ip) < 200:
+            ip.extend([0] * (200 - len(ip)))
+        elif len(ip) > 200:
+            ip = ip[:200]
+
+        new_inputs.append(np.asarray(ip))
+        new_labels.append(label)
+
+    return new_inputs, new_labels
+
+
 def augment_data(task):
     with np.load(f'./data/{task}/train.npz') as train:
         inputs = train['inputs']
