@@ -1,7 +1,7 @@
 epochs: 50
 batch_size: 32
 vocab_size: 25
-task: hemo  # hemo, sol, nf
+task: sol  # hemo, sol, nf
 debug: false
 
 network:
