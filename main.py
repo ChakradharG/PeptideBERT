@@ -68,5 +68,5 @@ if not config['debug']:
 
 train_model()
 if not config['debug']:
-    model.load_state_dict(torch.load(f'{save_dir}/model.pt')['model_state_dict'])
+    model.load_state_dict(torch.load(f'{save_dir}/model.pt')['model_state_dict'], strict=False)
 test(model, test_data_loader, device)
