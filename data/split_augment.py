@@ -178,11 +178,17 @@ def augment_data(task):
         inputs = train['inputs']
         labels = train['labels']
 
-    new_inputs1, new_labels1 = random_replace(inputs, labels, 0.05)
-    new_inputs3, new_labels3 = random_replace_with_A(inputs, labels, 0.05)
+    # new_inputs1, new_labels1 = random_replace(inputs, labels, 0.02)
+    # new_inputs2, new_labels2 = random_delete(inputs, labels, 0.02)
+    # new_inputs3, new_labels3 = random_replace_with_A(inputs, labels, 0.02)
+    new_inputs4, new_labels4 = random_swap(inputs, labels, 0.02)
+    # new_inputs5, new_labels5 = random_insertion_with_A(inputs, labels, 0.02)
 
-    inputs, labels = combine(inputs, labels, new_inputs1, new_labels1)
-    inputs, labels = combine(inputs, labels, new_inputs3, new_labels3)
+    # inputs, labels = combine(inputs, labels, new_inputs1, new_labels1)
+    # inputs, labels = combine(inputs, labels, new_inputs2, new_labels2)
+    # inputs, labels = combine(inputs, labels, new_inputs3, new_labels3)
+    inputs, labels = combine(inputs, labels, new_inputs4, new_labels4)
+    # inputs, labels = combine(inputs, labels, new_inputs5, new_labels5)
 
     np.savez(
         f'./data/{task}/train.npz',
@@ -192,9 +198,9 @@ def augment_data(task):
 
 
 def main():
-    # split_data('hemo')
+    split_data('hemo')
     split_data('sol')
-    # split_data('nf')
+    split_data('nf')
 
     augment_data('sol')
 
