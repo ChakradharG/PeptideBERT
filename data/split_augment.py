@@ -172,6 +172,12 @@ def random_insertion_with_A(inputs, labels, factor):
 
     return new_inputs, new_labels
 
+def random_masking(sequences, mask_prob=0.15, mask_token_id=0):
+    masked_sequences = np.copy(sequences)
+    mask = np.random.rand(*sequences.shape) < mask_prob
+    masked_sequences[mask] = mask_token_id
+    return masked_sequences
+
 
 def augment_data(task):
     with np.load(f'./data/{task}/train.npz') as train:
@@ -183,12 +189,14 @@ def augment_data(task):
     # new_inputs3, new_labels3 = random_replace_with_A(inputs, labels, 0.02)
     new_inputs4, new_labels4 = random_swap(inputs, labels, 0.02)
     # new_inputs5, new_labels5 = random_insertion_with_A(inputs, labels, 0.02)
+    #new_inputs6, new_labels6 = random_masking(inputs, mask_prob=0.15, mask_token_id=0)
 
     # inputs, labels = combine(inputs, labels, new_inputs1, new_labels1)
     # inputs, labels = combine(inputs, labels, new_inputs2, new_labels2)
     # inputs, labels = combine(inputs, labels, new_inputs3, new_labels3)
     inputs, labels = combine(inputs, labels, new_inputs4, new_labels4)
     # inputs, labels = combine(inputs, labels, new_inputs5, new_labels5)
+    #inputs, labels = combine(inputs, labels, new_inputs6, new_labels6)
 
     np.savez(
         f'./data/{task}/train.npz',
