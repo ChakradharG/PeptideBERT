@@ -202,6 +202,6 @@ def main():
     split_data('sol')
     split_data('nf')
 
-    augment_data('sol')
+    # augment_data('sol')
 
 main()
