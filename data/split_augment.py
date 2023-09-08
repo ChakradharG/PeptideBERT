@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from sklearn.model_selection import train_test_split
 from convert_encodings import m2
 
@@ -26,6 +27,9 @@ def split_data(task):
     train_inputs, val_inputs, train_labels, val_labels = train_test_split(
         train_val_inputs, train_val_labels, test_size=0.1
     )
+
+    if not os.path.exists(f'./data/{task}'):
+        os.mkdir(f'./data/{task}')
 
     np.savez(
         f'./data/{task}/train.npz',
