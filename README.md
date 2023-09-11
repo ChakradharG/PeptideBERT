@@ -1,5 +1,5 @@
 # PeptideBERT
-Transformer Based Language Model for Peptide Property Prediction
+Transformer Based Language Model for Peptide Property Prediction. [Corresponding paper](https://arxiv.org/abs/2309.03099).
 
 <br>
 
