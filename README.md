@@ -19,3 +19,5 @@ Transformer Based Language Model for Peptide Property Prediction.
 * Update the `config.py` file with the desired parameters
 * Optionally, to augment the data, use `data/split_augment.py` (uncomment the line that calls `augment_data`)
 * Run `python main.py` to train the model
+
+Note: For a detailed walkthrough of the codebase, please refer to `tutorial.ipynb`.
