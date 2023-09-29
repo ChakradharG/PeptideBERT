@@ -176,6 +176,7 @@ def random_insertion_with_A(inputs, labels, factor):
 
     return new_inputs, new_labels
 
+
 def random_masking(sequences, mask_prob=0.15, mask_token_id=0):
     masked_sequences = np.copy(sequences)
     mask = np.random.rand(*sequences.shape) < mask_prob
