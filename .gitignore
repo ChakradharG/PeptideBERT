@@ -1,5 +1,6 @@
 __pycache__/
 wandb/
 checkpoints/
+graphics/
 *.npz
 notes.md
