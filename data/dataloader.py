@@ -49,7 +49,7 @@ def load_data(config):
     print('Test dataset samples: ', len(test_dataset))
 
     print('Train dataset batches: ', len(train_data_loader))
-    print('Validataion dataset batches: ', len(val_data_loader))
+    print('Validation dataset batches: ', len(val_data_loader))
     print('Test dataset batches: ', len(test_data_loader))
 
     print()
