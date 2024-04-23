@@ -14,8 +14,8 @@ def train(model, dataloader, optimizer, criterion, scheduler, device):
 
         optimizer.zero_grad()
 
-        logits = model(inputs, attention_mask)
-        loss = criterion(logits, labels.unsqueeze(1))
+        logits = model(inputs, attention_mask).squeeze(1)
+        loss = criterion(logits, labels)
 
         loss.backward()
         optimizer.step()
@@ -39,7 +39,7 @@ def validate(model, dataloader, criterion, device):
         labels = batch['labels'].to(device)
 
         with torch.inference_mode():
-            logits = model(inputs, attention_mask).squeeze()
+            logits = model(inputs, attention_mask).squeeze(1)
             loss = criterion(logits, labels)
 
         total_loss += loss.item()
