@@ -66,7 +66,7 @@ def test(model, dataloader, device):
         labels = batch['labels']
 
         with torch.inference_mode():
-            logits = model(inputs, attention_mask).squeeze()
+            logits = model(inputs, attention_mask).squeeze(1)
     
         preds = torch.where(logits > 0.5, 1, 0)
         predictions.extend(preds.cpu().tolist())
